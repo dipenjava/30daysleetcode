@@ -1,0 +1,62 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+private:
+    ListNode* reverseLL(ListNode* head)
+{
+    if(head==NULL || head->next==NULL)
+    {
+        return head;
+    }
+    ListNode* chotaHead = reverseLL(head->next);
+    head->next->next = head; // Connects the current node to the previous node
+    head->next = NULL; // Sets the next of current node to NULL, effectively breaking the original link
+    return chotaHead; // Returns the new head of the reversed list
+}
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        if (head == nullptr || n <= 0) {
+            return head;
+        }
+        
+        // Reverse the linked list
+        head = reverseLL(head);
+        
+        ListNode* temp = head;
+        ListNode* prev = nullptr;
+        int count = 1; // Initialize count as 1
+        
+        // Find the Nth node from the end
+        while (temp != nullptr && count < n) {
+            prev = temp;
+            temp = temp->next;
+            ++count;
+        }
+        
+        // If temp is null, it means the list length is less than n
+        if (temp == nullptr) {
+            return reverseLL(prev); // Just reverse the list back and return
+        }
+        
+        // If the Nth node is the head node
+        if (prev == nullptr) {
+            head = head->next;
+        } else {
+            // Remove the Nth node
+            prev->next = temp->next;
+        }
+        
+        // Reverse the linked list back to its original order
+        head = reverseLL(head);
+        
+        return head;
+    }
+};
