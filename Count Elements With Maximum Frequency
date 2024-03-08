@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int maxFrequencyElements(vector<int>& nums) {
+        unordered_map<int, int> freq;
+        int maxFreq = 0;
+
+        // Count frequency of each element
+        for (int num : nums) {
+            maxFreq = max(maxFreq, ++freq[num]);
+        }
+        
+        int count = 0;
+        // Count elements with maximum frequency
+        for (auto& pair : freq) {
+            if (pair.second == maxFreq) {
+                count++;
+            }
+        }
+        
+        return count * maxFreq;
+    }
+};
