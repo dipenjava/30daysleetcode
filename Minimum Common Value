@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int getCommon(vector<int>& nums1, vector<int>& nums2) {
+            // Initialize pointers for both arrays
+    int i = 0, j = 0;
+
+    // Iterate through both arrays
+    while (i < nums1.size() && j < nums2.size()) {
+        // If current elements are equal, return that element
+        if (nums1[i] == nums2[j]) {
+            return nums1[i];
+        }
+        // Move the pointer of the array with the smaller element
+        else if (nums1[i] < nums2[j]) {
+            i++;
+        } else {
+            j++;
+        }
+
+    }
+    return -1;}
+    
+};
