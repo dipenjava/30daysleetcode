@@ -1,0 +1,26 @@
+class Solution {
+public:
+    string customSortString(string order, string s) {
+        // Count the frequency of characters in string s
+        unordered_map<char, int> freq;
+        for (char ch : s) {
+            freq[ch]++;
+        }
+
+        // Reorder characters based on the given order
+        string result;
+        for (char ch : order) {
+            if (freq.find(ch) != freq.end()) {
+                result.append(freq[ch], ch);
+                freq.erase(ch); // Remove the character from freq map after appending
+            }
+        }
+
+        // Append remaining characters in s that are not in order
+        for (auto& pair : freq) {
+            result.append(pair.second, pair.first);
+        }
+
+        return result;
+    }
+};
